@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 CURRENCY_CHOICES = (
-    ("PLN", 'Polish Złoty (PLN)'),
+    ("PLN", 'Polish Zloty (PLN)'),
     ("EUR", 'Euro (EUR)'),
     ("GBP", 'British Pound Sterling (GBP)'),
     ("CHF", 'Swiss Franc (CHF)'),
@@ -56,24 +56,27 @@ class Invoice(models.Model):
     amount_1 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     amount_2 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
     amount_3 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
-    total_price_1 = models.DecimalField(max_digits=10, decimal_places=2)
-    total_price_2 = models.DecimalField(max_digits=10, decimal_places=2)
-    total_price_3 = models.DecimalField(max_digits=10, decimal_places=2)
-    total_price = models.DecimalField(max_digits=20, decimal_places=2)
-    # Seller details:
-    seller_company_name = models.CharField(max_length=255)
-    seller_street_address = models.CharField(max_length=255)
-    seller_city = models.CharField(max_length=100)
-    seller_zip_code = models.CharField(max_length=50)
-    seller_tax_id = models.CharField(max_length=100)
-    seller_phone = models.CharField(max_length=20)
-    seller_account_number = models.CharField(max_length=50, blank=True)
-    # Buyer details:
-    buyer_company_name = models.CharField(max_length=255)
-    buyer_street_address = models.CharField(max_length=255)
-    buyer_city = models.CharField(max_length=100)
-    buyer_zip_code = models.CharField(max_length=50)
-    buyer_tax_id = models.CharField(max_length=100)
+    total_price_1 = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    total_price_2 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    total_price_3 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    total_price = models.DecimalField(max_digits=20, decimal_places=2,blank=True, null=True)
+    # Company details:
+    company_name = models.CharField(max_length=255)
+    company_street_address = models.CharField(max_length=255)
+    company_city = models.CharField(max_length=100)
+    company_zip_code = models.CharField(max_length=50)
+    company_tax_id = models.CharField(max_length=100)
+    company_phone = models.CharField(max_length=20)
+    company_account_number = models.CharField(max_length=50, blank=True)
+    # Customer details:
+    customer_company_name = models.CharField(max_length=255)
+    customer_street_address = models.CharField(max_length=255)
+    customer_city = models.CharField(max_length=100)
+    customer_zip_code = models.CharField(max_length=50)
+    customer_tax_id = models.CharField(max_length=100)
+    
+    class Meta:
+        ordering = ["-created_at"]
 
         
     def __str__(self):
@@ -88,13 +91,9 @@ class Invoice(models.Model):
         if self.price_2 and self.amount_2:
             self.total_price_2 = self.price_2 * self.amount_2
             self.total_price += self.total_price_2
-        else:
-            self.total_price_2 = None
         if self.price_3 and self.amount_3:
             self.total_price_3 = self.price_3 * self.amount_3
             self.total_price += self.total_price_3
-        else:
-            self.total_price_3 = None
 
         # Save calculations:
         super().save(*args, **kwargs)
