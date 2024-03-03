@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <title>{% block title %}{% endblock %} | SimpleInvoice</title>
+    </head>
+    <body class="flex flex-col min-h-screen bg-gray-100">
+        <nav class="fixed top-0 left-0 right-0 p-6 flex items-center justify-between bg-indigo-400">
+            <p class="text-xl text-white">SimpleInvoice</p>
+
+            <div class="space-x-4">
+                {% if request.user.is_authenticated %}
+                    <a href="#" class="text-white">Dashboard</a>
+                    <a href="#" class="py-2 px-4 bg-zinc-500 text-white rounded-md">Create New Invoice</a>
+                    <a href="#" class="py-2 px-4 bg-red-600 rounded-md text-white">Logout</a>
+                {% else %}
+                    <a href="#" class="py-2 px-4 bg-zinc-600 text-white rounded-md">Login</a>
+                    <a href="#" class="py-2 px-4 bg-zinc-800 text-white rounded-md">Sign up</a>
+                {% endif %}
+            </div>
+        </nav>
+        <main class="p-6 flex-1 mt-16">
+            
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-indigo-400 text-white">
+            <p class="text-sm text-center">Copyright (c) 2024 - Simple Invoice</p>
+        </footer>
+    </body>
+</html>

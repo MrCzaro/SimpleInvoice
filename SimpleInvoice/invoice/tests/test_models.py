@@ -256,7 +256,7 @@ class InvoiceModelTest(TestCase):
 
     def test_string_representation(self):
         # Test the __str__ representation
-        expected_str = f"(Invoice Number: {self.invoice.invoice_number})"
+        expected_str = f"Invoice Number: {self.invoice.invoice_number}"
         self.assertEqual(str(self.invoice), expected_str)
 
         

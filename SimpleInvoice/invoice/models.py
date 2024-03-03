@@ -80,7 +80,7 @@ class Invoice(models.Model):
 
         
     def __str__(self):
-        return f"(Invoice Number: {self.invoice_number})"
+        return f"Invoice Number: {self.invoice_number}"
 
 
     def save(self, *args, **kwargs):
