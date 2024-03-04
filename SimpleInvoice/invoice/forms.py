@@ -1,7 +1,7 @@
 from django import forms
 from .models import Invoice
 
-FORM_CLASS = "w-full my-2 py-2 px-2 rounded-xl bg-zinc-100"
+FORM_CLASS = "w-full my-2 py-1 px-1 rounded-md bg-indigo-100"
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
@@ -38,6 +38,7 @@ class InvoiceForm(forms.ModelForm):
             "customer_city",
             "customer_zip_code",
             "customer_tax_id",
+            "customer_phone",
         ]
         
         labels = {
@@ -63,6 +64,7 @@ class InvoiceForm(forms.ModelForm):
             "customer_city" : "City",
             "customer_zip_code" : "Zip Code",
             "customer_tax_id" : "Tax Id",
+            "customer" : "Telephone Number",
         }
         
         widgets = {
@@ -72,9 +74,9 @@ class InvoiceForm(forms.ModelForm):
             "invoice_number" : forms.TextInput(attrs={"class" : FORM_CLASS}),
             "currency" : forms.Select(attrs={"class": FORM_CLASS}),
             "method_payment" :forms.Select(attrs={"class": FORM_CLASS}),
-            "service_type_1" : forms.TextInput(attrs={"class" : FORM_CLASS}),
-            "service_type_2" : forms.TextInput(attrs={"class" : FORM_CLASS}),
-            "service_type_3" : forms.TextInput(attrs={"class" : FORM_CLASS}),
+            "service_type_1" : forms.TextInput(attrs={"class" : FORM_CLASS, 'placeholder': "1"}),
+            "service_type_2" : forms.TextInput(attrs={"class" : FORM_CLASS, 'placeholder': "2"}),
+            "service_type_3" : forms.TextInput(attrs={"class" : FORM_CLASS, 'placeholder': "3"}),
             "unit_1" : forms.Select(attrs={"class": FORM_CLASS}),
             "unit_2" : forms.Select(attrs={"class": FORM_CLASS}),
             "unit_3" : forms.Select(attrs={"class": FORM_CLASS}),
@@ -96,4 +98,5 @@ class InvoiceForm(forms.ModelForm):
             "customer_city" : forms.TextInput(attrs={"class" : FORM_CLASS}),
             "customer_zip_code" : forms.TextInput(attrs={"class" : FORM_CLASS}),
             "customer_tax_id" : forms.TextInput(attrs={"class" : FORM_CLASS}),
+            "customer_phone" : forms.TextInput(attrs={"class" : FORM_CLASS}),
         }

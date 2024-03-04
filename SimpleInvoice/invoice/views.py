@@ -20,13 +20,14 @@ def create_invoice(request):
             invoice = form.save(commit=False)
             invoice.created_by = request.user
             invoice.save()
-            return redirect(reverse("invoice:detail", invoice.id))
+            return redirect("invoice:detail", invoice.id)
     else: 
         form = InvoiceForm()
-        
+    back_url = reverse("invoice:dashboard")  
     context = {
         "form" : form,
         "title" : "Create an invoice",
+        "url" : back_url
     }
     
     return render(request, "invoice_form.html", context)
@@ -41,11 +42,33 @@ def update_invoice(request, invoice_id):
             return redirect("invoice:detail", invoice.id)
     else:
         form = InvoiceForm(instance=invoice)
-        
+    back_url = reverse("invoice:detail", args=[invoice.id])
     context = {
         "form" : form,
         "invoice" : invoice,
-        "title" : "Edit the invoice"
+        "title" : "Edit the invoice",
+        "url" : back_url
+    }
+    return render(request, "invoice_form.html", context)
+
+def create_similar_invoice(request, invoice_id):
+    # Handles the creation of a similar invoice
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    if request.method == "POST":
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            new = form.save(commit=False)
+            new.id = None
+            new.save()
+            return redirect("invoice:detail", invoice.id)
+    else:
+        form = InvoiceForm(instance=invoice)
+    back_url = reverse("invoice:detail", args=[invoice.id])
+    context = {
+        "form" : form,
+        "invoice" : invoice,
+        "title" : "Create a smilar invoice",
+        "url" : back_url
     }
     return render(request, "invoice_form.html", context)
 
@@ -64,9 +87,11 @@ def delete_invoice(request, invoice_id):
 def detail_invoice(request, invoice_id):
     # Displays an invoice details
     invoice = get_object_or_404(Invoice, id=invoice_id)
+    back_url = reverse("invoice:dashboard")  
     context={
+        "invoice" : invoice,
         "title" : "Invoice details",
-        "invoice" : invoice
+        "url" : back_url
     }
     return render(request, "invoice_details.html", context)
     

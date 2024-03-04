@@ -1,17 +1,139 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="flex items-center justify-center">
-    <h1 class="text-3xl font-bold mb-8 text-center">{{ title }}</h1>
 
-      <form method="post">
+    <h1 class="text-3xl font-bold text-center p-8">{{ title }}</h1>
+    <br/>
+
+    <form method="post" class="flex flex-col space-y-4 mb-16">
         {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border p-4 rounded-md">
+                <h2 class="font-bold text-lg">Company Information:</h2>
+                <br/>
+                {{ form.company_name.label_tag }}
+                {{ form.company_name }}
+                {{ form.company_street_address.label_tag  }}
+                {{ form.company_street_address }}
+                {{ form.company_city.label_tag  }}
+                {{ form.company_city }}
+                {{ form.company_zip_code.label_tag  }}
+                {{ form.company_zip_code }}
+                {{ form.company_tax_id.label_tag  }}
+                {{ form.company_tax_id }}
+                {{ form.company_phone.label_tag  }}
+                {{ form.company_phone }}
+                {{ form.company_account_number.label_tag  }}
+                {{ form.company_account_number }}
+                
+            </div>
+            <div class="border p-4 rounded-md">
+                <h2 class="font-bold text-lg">Customer Information:</h2>
+                <br/>
+                {{ form.customer_company_name.label_tag }}
+                {{ form.customer_company_name }}
+                {{ form.customer_street_address.label_tag }}
+                {{ form.customer_street_address }}
+                {{ form.customer_city.label_tag }}
+                {{ form.customer_city }}
+                {{ form.customer_zip_code.label_tag }}
+                {{ form.customer_zip_code }}
+                {{ form.customer_tax_id.label_tag }}
+                {{ form.customer_tax_id }}
+                {{ form.customer_phone.label_tag }}
+                {{ form.customer_phone }}
 
-        {{ form.as_table}}
+            </div>
+        </div>
 
-        <div class="mt-6 flex items-center justify-center text-white mb-16">
+        <hr class="my-6">
+
+
+        <h2 class="font-bold text-2xl mb-4">Invoice Details:</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="mb-4">
+                {{ form.place_of_creation.label_tag }}
+                {{ form.place_of_creation }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.date_of_creation.label_tag }}
+                {{ form.date_of_creation }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.date_of_service.label_tag }}
+                {{ form.date_of_service }}
+            </div>
+
+
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="mb-4">
+                {{ form.invoice_number.label_tag }}
+                {{ form.invoice_number }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.currency.label_tag }}
+                {{ form.currency }}
+            </div>
+
+            <div class="mb-4">
+                {{ form.method_payment.label_tag }}
+                {{ form.method_payment }}
+            </div>
+
+            <!-- Add other fields similarly with appropriate styling -->
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border p-4 rounded-md">
+                {{ form.service_type_1.label_tag }}
+                {{ form.service_type_1 }}
+                {{ form.service_type_2 }}
+                {{ form.service_type_3 }}
+            </div>
+
+            <div class="border p-4 rounded-md">
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        {{ form.unit_1.label_tag }}
+                        {{ form.unit_1 }}
+                        {{ form.unit_2 }}
+                        {{ form.unit_3 }}
+                    </div>
+
+                    <div>
+                        {{ form.amount_1.label_tag }}
+                        {{ form.amount_1 }}
+                        {{ form.amount_2 }}
+                        {{ form.amount_3 }}
+                    </div>
+
+                    <div>
+                        {{ form.price_1.label_tag }}
+                        {{ form.price_1 }}
+                        {{ form.price_2 }}
+                        {{ form.price_3 }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            {{ form.additional_information.label_tag }}
+            {{ form.additional_information }}
+        </div>
+
+        <div class="mt-6 flex items-center justify-center text-white">
           <button class="py-2 px-4 bg-zinc-500 rounded-md m-3">Submit</button>
-          <a href="#" class="py-2 px-4 bg-zinc-300 rounded-md m-3">Back</a>
+          <a href={{ url}} class="py-2 px-4 bg-zinc-300 rounded-md m-3">Back</a>
         </div>
       </form>
   </div>

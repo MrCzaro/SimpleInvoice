@@ -6,11 +6,11 @@
 
         <script src="https://cdn.tailwindcss.com"></script>
 
-        <title>{% block title %}{% endblock %} | SimpleInvoice</title>
+        <title>{% block title %}{{ title }}{% endblock %} | Simple Invoice</title>
     </head>
     <body class="flex flex-col min-h-screen bg-gray-100">
         <nav class="fixed top-0 left-0 right-0 p-6 flex items-center justify-between bg-indigo-400">
-            <p class="text-xl text-white">SimpleInvoice</p>
+            <p class="text-xl text-white">Simple Invoice</p>
 
             <div class="space-x-4">
                 {% if request.user.is_authenticated %}

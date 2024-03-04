@@ -1,154 +1,141 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex justify-center">
-    <div class="w-2/3 p-4 mb-6">
-        <div class="flex items-center justify-between ">
-            <p><strong>Date of issue:</strong> {{ invoice.date_of_creation }}</p>
-            <p><strong>Date of service:</strong> {{ invoice.date_of_service }}</p>
-        </div>
-    </div>
-</div>
-
-<div class="flex justify-center">
-    <div class="mb-10 flex items-center">
-        <p><strong>Invoice number: </strong> {{ invoice.invoice_number }}</p>
-    </div>
-</div>
-
-<div class="flex justify-center mb-8">
-    <div class="w-2/3 p-4">
-        <div class="flex justify-between mt-5">
-            <div class="ml-6">
-              <p class="mb-2"><strong>Seller details:</strong></p>
-              <p>{{ invoice.company_name }}</p>
-              <p>{{ invoice.company_street_address }}</p>
-              <p>{{ invoice.company_city }}</p>
-              <p>{{ invoice.company_zip_code }}</p>
-              <p>{{ invoice.company_tax_id }}</p>
+    <div class="container mx-auto p-8">
+        <div class="bg-gray-100 p-4 mb-6 rounded-lg shadow-md">
+            <div class="flex items-center justify-between">
+                <p class="font-semibold">Date of issue: {{ invoice.date_of_creation }}</p>
+                <p class="font-semibold">Date of service: {{ invoice.date_of_service }}</p>
             </div>
-            <div class="mr-6">
-              <p class="mb-2"><strong>Buyer details:</strong></p>
-              <p>{{ invoice.customer_company_name }}</p>
-              <p>{{ invoice.customer_street_address }}</p>
-              <p>{{ invoice.customer_city }}</p>
-              <p>{{ invoice.customer_zip_code }}</p>
-              <p>{{ invoice.customer_tax_id }}</p>
-            </div>
-          </div>
-    </div>
-</div>
-
-<div class="flex justify-center">
-    <div class="w-2/3 p-4">
-        <div class="flex justify-between mt-3">
-            <div class="ml-4">
-                <p><strong>Name of service:</strong></p>
-                <p>{{ invoice.service_type_1 }}</p>
-                <p>{{ invoice.service_type_2 }}</p>
-                <p>{{ invoice.service_type_3 }}</p>
-            </div>
-
-            <div>
-                <p><strong>Unit:</strong></p>
-                <p>{{ invoice.unit_1 }}</p>
-                {% if invoice.unit_2 is not None %}
-                    <p>{{ invoice.unit_2 }}</p>
-                {% endif %}
-                {% if invoice.unit_3 is not None %}
-                    <p>{{ invoice.unit_3 }}</p>
-                {% endif %}
-            </div>
-
-            <div>
-                <p><strong>Amount:</strong></p>
-                <p>{{ invoice.amount_1 }}</p>
-                {% if invoice.amount_2 is not None %}
-                    <p>{{ invoice.amount_2 }}</p>
-                {% endif %}
-                {% if invoice.amount_3 is not None %}
-                    <p>{{ invoice.amount_3 }}</p>
-                {% endif %}
-            </div>
-
-            <div>
-                <p><strong>Price:</strong></p>
-                <p>{{ invoice.price_1 }}</p>
-                {% if invoice.price_2 is not None %}
-                    <p>{{ invoice.price_2 }}</p>
-                {% endif %}
-
-                {% if invoice.price_3 is not None %}
-                    <p>{{ invoice.price_3 }}</p>
-                {% endif %}
-            </div>
-
-            <div class="mr-4">
-                <p><strong>Total price:</strong></p>
-                <p>{{ invoice.total_price_1 }}</p>
-                {% if invoice.total_price_2 is not None %}
-                    <p>{{ invoice.total_price_2 }}</p>
-                {% endif %}
-                {% if invoice.total_price_3 is not None %}
-                    <p>{{ invoice.total_price_3 }}</p>
-                {% endif %}
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="py-6 flex justify-center p-10">
-    <div class="w-2/3">
-        <p><strong>Total due: </strong>{{ invoice.total_price }} {{ invoice.currency|upper }}</p>
-        <p><strong>Account number: </strong>{{ invoice.company_account_number }}</p>
-        <p><strong>Method payment: </strong>{{ invoice.method_payment }}</p>
-        <p><strong>Due date: </strong>14 days</p>
-    </div>
-</div>
-
-{% if invoice.company_phone %}
-<div class="flex justify-center p-5">
-    <div class="mb-5 flex items-center">
-        <p><strong>Company phone number:</strong> </strong> {{ invoice.company_phone }}</p>
-    </div>
-</div>
-{% endif %}
-
-
-
-{% if invoice.additional_information %}
-<div class="flex justify-center">
-    <div class="mb-10 flex items-center">
-        <p><strong>Comments:</strong> {{ invoice.additional_information }}</p>
-
-    </div>
-</div>
-{% endif %}
-
-
-<div class="flex justify-center py-4">
-    <div class="w-2/3 flex justify-between">
-        <div class="ml-4">
-
-            <p><strong>Company signature:</strong></p>
-            <p>_________________</p>
-        </div>
-        <div class="mr-4">
-            <p><strong>Customer signature:</strong></p>
-            <p>________________</p>
-        </div>
-    </div>
-</div>
-<div class="flex justify-center">
-        <div class="flex items-center mt-8">
-            <a href="#" class="py-4 px-6 bg-zinc-700 rounded-xl text-white mr-3">Download</a>
-            <a href="#" class="py-4 px-6 bg-zinc-300 rounded-xl text-white mr-3">Back</a>
-            <a href="{% url 'invoice:update' invoice.id %}" class="py-2 px-4 bg-zinc-500 rounded-md text-white mr-3">Update</a>
-            <a href="{% url 'invoice:delete' invoice.id %}" class="py-2 px-4 bg-red-600 rounded-md text-white">Delete</a>
         </div>
 
-</div>
+        <div class="flex justify-center mb-10">
+            <div class="flex items-center bg-gray-100 p-4 rounded-lg shadow-md">
+                <p class="font-semibold">Invoice number: {{ invoice.invoice_number }}</p>
+            </div>
+        </div>
 
+        <div class="flex justify-center mb-8">
+            <div class="w-2/3 bg-gray-100 p-4 rounded-md shadow-md">
+                <div class="flex justify-between mt-5">
+                    <div class="ml-6">
+                        <p class="mb-2 font-semibold">Seller details:</p>
+                        <p>{{ invoice.company_name }}</p>
+                        <p>{{ invoice.company_street_address }}</p>
+                        <p>{{ invoice.company_city }}</p>
+                        <p>{{ invoice.company_zip_code }}</p>
+                        <p>{{ invoice.company_tax_id }}</p>
+                    </div>
+                    <div class="mr-6">
+                        <p class="mb-2 font-semibold">Buyer details:</p>
+                        <p>{{ invoice.customer_company_name }}</p>
+                        <p>{{ invoice.customer_street_address }}</p>
+                        <p>{{ invoice.customer_city }}</p>
+                        <p>{{ invoice.customer_zip_code }}</p>
+                        <p>{{ invoice.customer_tax_id }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="flex justify-center">
+            <div class="w-2/3 bg-gray-100 p-4 rounded-md shadow-md">
+                <div class="flex justify-between mt-3">
+                    <div class="ml-4">
+                        <p class="font-semibold">Name of service:</p>
+                        <p>{{ invoice.service_type_1 }}</p>
+                        <p>{{ invoice.service_type_2 }}</p>
+                        <p>{{ invoice.service_type_3 }}</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Unit:</p>
+                        <p>{{ invoice.unit_1 }}</p>
+                        {% if invoice.unit_2 is not None %}
+                            <p>{{ invoice.unit_2 }}</p>
+                        {% endif %}
+                        {% if invoice.unit_3 is not None %}
+                            <p>{{ invoice.unit_3 }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <p class="font-semibold">Amount:</p>
+                        <p>{{ invoice.amount_1 }}</p>
+                        {% if invoice.amount_2 is not None %}
+                            <p>{{ invoice.amount_2 }}</p>
+                        {% endif %}
+                        {% if invoice.amount_3 is not None %}
+                            <p>{{ invoice.amount_3 }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <p class="font-semibold">Price:</p>
+                        <p>{{ invoice.price_1 }}</p>
+                        {% if invoice.price_2 is not None %}
+                            <p>{{ invoice.price_2 }}</p>
+                        {% endif %}
+                        {% if invoice.price_3 is not None %}
+                            <p>{{ invoice.price_3 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mr-4">
+                        <p class="font-semibold">Total price:</p>
+                        <p>{{ invoice.total_price_1 }}</p>
+                        {% if invoice.total_price_2 is not None %}
+                            <p>{{ invoice.total_price_2 }}</p>
+                        {% endif %}
+                        {% if invoice.total_price_3 is not None %}
+                            <p>{{ invoice.total_price_3 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-6 flex justify-center p-10">
+            <div class="w-2/3">
+                <p class="font-semibold">Total due: {{ invoice.total_price }} {{ invoice.currency|upper }}</p>
+                <p class="font-semibold">Account number: {{ invoice.company_account_number }}</p>
+                <p class="font-semibold">Method payment: {{ invoice.method_payment }}</p>
+                <p class="font-semibold">Due date: 14 days</p>
+            </div>
+        </div>
+
+        {% if invoice.company_phone %}
+            <div class="flex justify-center p-5">
+                <div class="mb-5 flex items-center">
+                    <p class="font-semibold">Company phone number: {{ invoice.company_phone }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if invoice.additional_information %}
+            <div class="flex justify-center">
+                <div class="mb-10 flex items-center">
+                    <p class="font-semibold">Comments: {{ invoice.additional_information }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="flex justify-center py-4">
+            <div class="w-2/3 flex justify-between">
+                <div class="ml-4">
+                    <p class="font-semibold">Company signature:</p>
+                    <p>_________________</p>
+                </div>
+                <div class="mr-4">
+                    <p class="font-semibold">Customer signature:</p>
+                    <p>________________</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <div class="flex items-center mt-8">
+                <a href={{ url }} class="py-2 px-4 bg-zinc-400 rounded-md text-white mr-3">Back</a>
+                <a href={% url 'invoice:create-similar' invoice.id %} class="py-2 px-4 bg-zinc-400 rounded-md text-white mr-3">Create Similar</a>
+                <a href="#" class="py-2 px-4 bg-zinc-600 rounded-md text-white mr-3">Download</a>
+                <a href="{% url 'invoice:update' invoice.id %}" class="py-2 px-4 bg-zinc-800 rounded-md text-white mr-3">Update</a>
+                <a href="{% url 'invoice:delete' invoice.id %}" class="py-2 px-4 bg-red-600 rounded-md text-white">Delete</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

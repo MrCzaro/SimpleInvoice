@@ -74,6 +74,7 @@ class Invoice(models.Model):
     customer_city = models.CharField(max_length=100)
     customer_zip_code = models.CharField(max_length=50)
     customer_tax_id = models.CharField(max_length=100)
+    customer_phone = models.CharField(max_length=20)
     
     class Meta:
         ordering = ["-created_at"]
