@@ -14,8 +14,8 @@
 
             <div class="space-x-4">
                 {% if request.user.is_authenticated %}
-                    <a href="#" class="text-white">Dashboard</a>
-                    <a href="#" class="py-2 px-4 bg-zinc-500 text-white rounded-md">Create New Invoice</a>
+                    <a href="{% url "invoice:dashboard" %}" class="text-white">Dashboard</a>
+                    <a href="{% url 'invoice:create' %}" class="py-2 px-4 bg-zinc-500 text-white rounded-md">Create New Invoice</a>
                     <a href="#" class="py-2 px-4 bg-red-600 rounded-md text-white">Logout</a>
                 {% else %}
                     <a href="#" class="py-2 px-4 bg-zinc-600 text-white rounded-md">Login</a>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<div class="flex justify-center items-center py-6">
+    <div>
+        {% if invoices %}
+            {% for invoice in invoices %}
+                <li>
+                    <a href="{% url 'invoice:detail' invoice.id %}" >
+                        Invoice #: <strong>{{ invoice.invoice_number }}</strong> | Creation Date: {{ invoice.date_of_creation }}
+                    </a>
+
+                </li>
+            {% endfor %}
+        {% else %}
+                <p>You have not created any invoices yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -35,18 +35,18 @@ def update_invoice(request, invoice_id):
     # Handles the update of an invoice
     invoice = get_object_or_404(Invoice, id=invoice_id)
     if request.method == "POST":
-        form = InvoiceForm(request.post, instance=invoice)
+        form = InvoiceForm(request.POST, instance=invoice)
         if form.is_valid():
             form.save()
             return redirect("invoice:detail", invoice.id)
-        else:
-            form = InvoiceForm(instance=invoice)
+    else:
+        form = InvoiceForm(instance=invoice)
         
-        context = {
-            "form" : form,
-            #"invoice" : invoice,
-            "title" : "Edit the invoice"
-        }
+    context = {
+        "form" : form,
+        "invoice" : invoice,
+        "title" : "Edit the invoice"
+    }
     return render(request, "invoice_form.html", context)
 
 def delete_invoice(request, invoice_id):
@@ -57,6 +57,7 @@ def delete_invoice(request, invoice_id):
         return redirect("invoice:dashboard")
     context = {
         "title" : "Delete the Invoice",
+        "invoice" : invoice
     }
     return render(request, "confirm_delete.html", context)
 
@@ -64,7 +65,8 @@ def detail_invoice(request, invoice_id):
     # Displays an invoice details
     invoice = get_object_or_404(Invoice, id=invoice_id)
     context={
-        "title" : "Invoice details"
+        "title" : "Invoice details",
+        "invoice" : invoice
     }
     return render(request, "invoice_details.html", context)
     
