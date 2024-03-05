@@ -26,6 +26,7 @@ class InvoiceForm(forms.ModelForm):
             "amount_1",
             "amount_2",
             "amount_3",
+            "additional_information",
             "company_name",
             "company_street_address",
             "company_city",
@@ -42,13 +43,13 @@ class InvoiceForm(forms.ModelForm):
         ]
         
         labels = {
-            "place_of_creation" : "Place of issue",
-            "date_of_creation" : "Date of issue",
-            "date_of_service" : "Date of service",
+            "place_of_creation" : "Place Of Issue",
+            "date_of_creation" : "Date Of Issue",
+            "date_of_service" : "Date Of Service",
             "invoice_number" : "Invoice Number",
             "currency" : "Currency",
-            "method_payment" : "Method of payment",
-            "service_type_1" : "Name of sercive",
+            "method_payment" : "Method Of Payment",
+            "service_type_1" : "Name Of Sercive",
             "unit_1" : "Unit",
             "price_1" : "Price",
             "amount_1" : "Quantity",
@@ -65,6 +66,7 @@ class InvoiceForm(forms.ModelForm):
             "customer_zip_code" : "Zip Code",
             "customer_tax_id" : "Tax Id",
             "customer" : "Telephone Number",
+            "additional_information" : "Additional Information",
         }
         
         widgets = {
@@ -86,6 +88,7 @@ class InvoiceForm(forms.ModelForm):
             "amount_1" : forms.NumberInput(attrs={"class": FORM_CLASS}),
             "amount_2" : forms.NumberInput(attrs={"class": FORM_CLASS}),
             "amount_3": forms.NumberInput(attrs={"class": FORM_CLASS}),
+            "additional_information": forms.Textarea(attrs={"class": FORM_CLASS, "rows": 1}),
             "company_name" : forms.TextInput(attrs={"class" : FORM_CLASS}),
             "company_street_address" : forms.TextInput(attrs={"class" : FORM_CLASS}),
             "company_city" : forms.TextInput(attrs={"class" : FORM_CLASS}),

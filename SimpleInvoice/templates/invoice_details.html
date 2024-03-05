@@ -25,6 +25,7 @@
                         <p>{{ invoice.company_city }}</p>
                         <p>{{ invoice.company_zip_code }}</p>
                         <p>{{ invoice.company_tax_id }}</p>
+                        <p>Phone: {{ invoice.company_phone }}</p>
                     </div>
                     <div class="mr-6">
                         <p class="mb-2 font-semibold">Buyer details:</p>
@@ -33,6 +34,7 @@
                         <p>{{ invoice.customer_city }}</p>
                         <p>{{ invoice.customer_zip_code }}</p>
                         <p>{{ invoice.customer_tax_id }}</p>
+                        <p>Phone: {{ invoice.company_phone }}</p>
                     </div>
                 </div>
             </div>
@@ -100,14 +102,6 @@
             </div>
         </div>
 
-        {% if invoice.company_phone %}
-            <div class="flex justify-center p-5">
-                <div class="mb-5 flex items-center">
-                    <p class="font-semibold">Company phone number: {{ invoice.company_phone }}</p>
-                </div>
-            </div>
-        {% endif %}
-
         {% if invoice.additional_information %}
             <div class="flex justify-center">
                 <div class="mb-10 flex items-center">
@@ -131,9 +125,9 @@
         <div class="flex justify-center">
             <div class="flex items-center mt-8">
                 <a href={{ url }} class="py-2 px-4 bg-zinc-400 rounded-md text-white mr-3">Back</a>
-                <a href={% url 'invoice:create-similar' invoice.id %} class="py-2 px-4 bg-zinc-400 rounded-md text-white mr-3">Create Similar</a>
-                <a href="#" class="py-2 px-4 bg-zinc-600 rounded-md text-white mr-3">Download</a>
-                <a href="{% url 'invoice:update' invoice.id %}" class="py-2 px-4 bg-zinc-800 rounded-md text-white mr-3">Update</a>
+                <a href={% url 'invoice:create-similar' invoice.id %} class="py-2 px-4 bg-zinc-600 rounded-md text-white mr-3">Create Similar</a>
+                <a href="{% url 'invoice:download' invoice.id %}" class="py-2 px-4 bg-zinc-700 rounded-md text-white mr-3">Download</a>
+                <a href="{% url 'invoice:update' invoice.id %}" class="py-2 px-4 bg-zinc-900 rounded-md text-white mr-3">Update</a>
                 <a href="{% url 'invoice:delete' invoice.id %}" class="py-2 px-4 bg-red-600 rounded-md text-white">Delete</a>
             </div>
         </div>

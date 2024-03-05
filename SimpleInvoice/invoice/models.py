@@ -2,7 +2,7 @@ import uuid
 
 from django.db import models
 from django.core.validators import MinValueValidator
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 
 CURRENCY_CHOICES = (
@@ -39,7 +39,7 @@ class Invoice(models.Model):
     date_of_creation = models.DateField()
     date_of_service = models.DateField()
     invoice_number = models.CharField(max_length=100)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     currency = models.CharField(max_length=50, choices=CURRENCY_CHOICES)
@@ -60,6 +60,7 @@ class Invoice(models.Model):
     total_price_2 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     total_price_3 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     total_price = models.DecimalField(max_digits=20, decimal_places=2,blank=True, null=True)
+    additional_information = models.TextField(blank=True)
     # Company details:
     company_name = models.CharField(max_length=255)
     company_street_address = models.CharField(max_length=255)

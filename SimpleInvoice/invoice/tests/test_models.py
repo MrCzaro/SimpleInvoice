@@ -39,7 +39,8 @@ class InvoiceModelTest(TestCase):
             customer_street_address="Customer Street",
             customer_city="Customer City",
             customer_zip_code="12345B",
-            customer_tax_id="1234567890",            
+            customer_tax_id="1234567890",
+            customer_phone="213721"            
         )
     
     def test_valid_invoice(self):
