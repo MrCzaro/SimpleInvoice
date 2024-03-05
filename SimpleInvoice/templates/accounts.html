@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+
+    <div class="p-6 flex-1 mb-14">
+        {% if messages %}
+            <div class="space-y-4">
+                {% for message in messages %}
+                    <div class="bg-green-200 text-black rounded-md p-4">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="py-2 px-4 bg-zinc-500 rounded-md m-3">{{ title }}</button>
+    </form>
+{% endblock %}
