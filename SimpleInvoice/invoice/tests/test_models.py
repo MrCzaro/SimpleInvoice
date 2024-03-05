@@ -1,16 +1,15 @@
 from django.test import TestCase
 
 from invoice.models import Invoice
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
-from django.core.exceptions import ValidationError
+
 
 class InvoiceModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(
-        username='test_user',
-        email='test@django.com',
+        cls.user = CustomUser.objects.create_user(
+        username='test@django.com',
         password='test_user_password',
         )
         cls.invoice = Invoice.objects.create(

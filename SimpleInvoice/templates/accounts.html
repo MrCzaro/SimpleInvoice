@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ title }}</h2>
-
-    <div class="p-6 flex-1 mb-14">
+<div class="flex items-center justify-center h-screen">
+    <div class="bg-gray-100 p-8 rounded-md shadow-md">
         {% if messages %}
             <div class="space-y-4">
                 {% for message in messages %}
@@ -14,10 +13,25 @@
             </div>
         {% endif %}
 
+        <h2 class="text-2xl font-semibold mb-4">{{ title }}</h2>
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            {% if  title  == "Signup" %}
+                <p>{{ form.email.label_tag }}</p>
+                <p>{{ form.email }}</p>
+                <p>{{ form.password1.label_tag }}</p>
+                <p>{{ form.password1 }}</p>
+                <p>{{ form.password2.label_tag }}</p>
+                <p>{{ form.password2 }}</p>
+            {% elif  title  == "Login" %}
+                <p>{{ form.username.label_tag }}</p>
+                <p>{{ form.username }}</p>
+                <p>{{ form.password.label_tag }}</p>
+                <p>{{ form.password }}</p>
+            {% endif %}
+            <button class="py-2 px-4 bg-zinc-500 text-white rounded-md">{{ title }}</button>
+        </form>
     </div>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="py-2 px-4 bg-zinc-500 rounded-md m-3">{{ title }}</button>
-    </form>
+</div>
 {% endblock %}
