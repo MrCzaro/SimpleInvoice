@@ -1,12 +1,16 @@
+{% load compress %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <script src="https://cdn.tailwindcss.com"></script>
-
         <title>{% block title %}{{ title }}{% endblock %} | Simple Invoice</title>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'src/output.css' %}">
+        {% endcompress %}
     </head>
     <body class="flex flex-col min-h-screen bg-gray-100">
         <nav class="fixed top-0 left-0 right-0 p-6 flex items-center justify-between bg-indigo-400">

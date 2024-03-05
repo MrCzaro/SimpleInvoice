@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer componets {
+    /* Forms style*/
+    .form-class {
+        @apply w-full my-2 py-1 px-1 rounded-md bg-indigo-100;
+    }
+}

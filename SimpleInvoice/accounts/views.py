@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.db import IntegrityError
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from .forms import CustomAuthenticationForm, CustomUserCreationForm
@@ -6,9 +7,12 @@ from .forms import CustomAuthenticationForm, CustomUserCreationForm
 def signup_user(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("accounts:login")
+        try:
+            if form.is_valid():
+                form.save()
+                return redirect("accounts:login")
+        except IntegrityError:
+            form.add_error('email', "This username is already take. Please choose a different one. ")
     else: 
         form = CustomUserCreationForm()
     

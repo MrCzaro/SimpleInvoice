@@ -6,7 +6,7 @@ from fpdf import FPDF
 from .forms import InvoiceForm
 from .models import Invoice
 
-@login_required#(login_url="/login/")
+@login_required
 def dashboard(request):
     invoices = Invoice.objects.filter(created_by=request.user)
     context = {
@@ -15,7 +15,7 @@ def dashboard(request):
     }
     return render(request, "dashboard.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def create_invoice(request):
     # Handles the creation of an invoice
     if request.method == "POST":
@@ -36,7 +36,7 @@ def create_invoice(request):
     
     return render(request, "invoice_form.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def update_invoice(request, invoice_id):
     # Handles the update of an invoice
     invoice = get_object_or_404(Invoice, id=invoice_id)
@@ -56,7 +56,7 @@ def update_invoice(request, invoice_id):
     }
     return render(request, "invoice_form.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def create_similar_invoice(request, invoice_id):
     # Handles the creation of a similar invoice
     invoice = get_object_or_404(Invoice, id=invoice_id)
@@ -78,7 +78,7 @@ def create_similar_invoice(request, invoice_id):
     }
     return render(request, "invoice_form.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def delete_invoice(request, invoice_id):
     # Handles the deletion of an invoice
     invoice = get_object_or_404(Invoice, id=invoice_id)
@@ -91,7 +91,7 @@ def delete_invoice(request, invoice_id):
     }
     return render(request, "confirm_delete.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def detail_invoice(request, invoice_id):
     # Displays an invoice details
     invoice = get_object_or_404(Invoice, id=invoice_id)
@@ -103,7 +103,7 @@ def detail_invoice(request, invoice_id):
     }
     return render(request, "invoice_details.html", context)
 
-@login_required#(login_url="/login/")
+@login_required
 def download_invoice(request, invoice_id):
     # Handles creation of invoice in pdf format and make it downloadable
     invoice = get_object_or_404(Invoice, id=invoice_id)

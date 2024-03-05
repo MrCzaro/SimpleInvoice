@@ -1,23 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="flex items-center justify-center h-screen">
-    <div class="bg-gray-100 p-8 rounded-md shadow-md">
-        {% if messages %}
-            <div class="space-y-4">
-                {% for message in messages %}
-                    <div class="bg-green-200 text-black rounded-md p-4">
-                        <p>{{ message }}</p>
-                    </div>
-                {% endfor %}
+
+<div class="flex items-center justify-center mt-36 mb-16">
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="text-red-500">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="text-red-500">
+                <strong>{{ error|escape }}</strong>
             </div>
-        {% endif %}
-
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="flex items-center justify-center m-30">
+    <div class="bg-gray-100 p-8 rounded-md shadow-md">
         <h2 class="text-2xl font-semibold mb-4">{{ title }}</h2>
-
+        
         <form method="post" class="space-y-4">
             {% csrf_token %}
             {% if  title  == "Signup" %}
+                <p>{{ form.username.label_tag }}</p>
+                <p>{{ form.username }}</p>
                 <p>{{ form.email.label_tag }}</p>
                 <p>{{ form.email }}</p>
                 <p>{{ form.password1.label_tag }}</p>
