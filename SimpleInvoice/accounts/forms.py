@@ -11,9 +11,9 @@ class CustomAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].label = "Email address"
-        self.fields["username"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["username"].widget.attrs.update({"class" : "form-class"})
         self.fields["password"].label = "Password"
-        self.fields["password"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["password"].widget.attrs.update({"class" : "form-class"})
         
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -22,10 +22,10 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].label = "Username"
-        self.fields["username"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["username"].widget.attrs.update({"class" : "form-class"})
         self.fields["email"].label = "Email address"
-        self.fields["email"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["email"].widget.attrs.update({"class" : "form-class"})
         self.fields["password1"].label = "Password"
-        self.fields["password1"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["password1"].widget.attrs.update({"class" : "form-class"})
         self.fields["password2"].label = "Confirm password"
-        self.fields["password2"].widget.attrs.update({"class" : FORM_CLASS})
+        self.fields["password2"].widget.attrs.update({"class" : "form-class"})
