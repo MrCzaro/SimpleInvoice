@@ -1,22 +1,21 @@
 import uuid
-
 from django.db import models
 from django.core.validators import MinValueValidator
 from accounts.models import CustomUser
 
 
 CURRENCY_CHOICES = (
-    ("PLN", 'Polish Zloty (PLN)'),
-    ("EUR", 'Euro (EUR)'),
-    ("GBP", 'British Pound Sterling (GBP)'),
-    ("CHF", 'Swiss Franc (CHF)'),
-    ("SEK", 'Swedish Krona (SEK)'),
-    ("NOK", 'Norwegian Krone (NOK)'),
-    ("DKK", 'Danish Krone (DKK)'),
-    ("HUF", 'Hungarian Forint (HUF)'),
-    ("CZK", 'Czech Koruna (CZK)'),
-    ("RON", 'Romanian Leu (RON)'),
-    ('USD', 'US Dollar (USD)'),
+    ("PLN", "Polish Zloty (PLN)"),
+    ("EUR", "Euro (EUR)"),
+    ("GBP", "British Pound Sterling (GBP)"),
+    ("CHF", "Swiss Franc (CHF)"),
+    ("SEK", "Swedish Krona (SEK)"),
+    ("NOK", "Norwegian Krone (NOK)"),
+    ("DKK", "Danish Krone (DKK)"),
+    ("HUF", "Hungarian Forint (HUF)"),
+    ("CZK", "Czech Koruna (CZK)"),
+    ("RON", "Romanian Leu (RON)"),
+    ("USD", "US Dollar (USD)"),
 )
 
 METHOD_PAYMENT_CHOICES = (
@@ -31,6 +30,7 @@ UNIT_CHOICES = (
     ("units", "UNITS"),
     ("pieces", "PIECES"),
 )
+
 
 class Invoice(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -50,16 +50,52 @@ class Invoice(models.Model):
     unit_1 = models.CharField(max_length=15, choices=UNIT_CHOICES)
     unit_2 = models.CharField(max_length=15, choices=UNIT_CHOICES, blank=True)
     unit_3 = models.CharField(max_length=15, choices=UNIT_CHOICES, blank=True)
-    price_1 = models.DecimalField(max_digits=100, decimal_places=2, validators=[MinValueValidator(0)])
-    price_2 = models.DecimalField(max_digits=100, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
-    price_3 = models.DecimalField(max_digits=100, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
-    amount_1 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
-    amount_2 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
-    amount_3 = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], blank=True, null=True)
-    total_price_1 = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
-    total_price_2 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    total_price_3 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    total_price = models.DecimalField(max_digits=20, decimal_places=2,blank=True, null=True)
+    price_1 = models.DecimalField(
+        max_digits=100, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    price_2 = models.DecimalField(
+        max_digits=100,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
+    )
+    price_3 = models.DecimalField(
+        max_digits=100,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
+    )
+    amount_1 = models.DecimalField(
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    amount_2 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
+    )
+    amount_3 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
+    )
+    total_price_1 = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    total_price_2 = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    total_price_3 = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True
+    )
+    total_price = models.DecimalField(
+        max_digits=20, decimal_places=2, blank=True, null=True
+    )
     additional_information = models.TextField(blank=True)
     # Company details:
     company_name = models.CharField(max_length=255)
@@ -76,14 +112,12 @@ class Invoice(models.Model):
     customer_zip_code = models.CharField(max_length=50)
     customer_tax_id = models.CharField(max_length=100)
     customer_phone = models.CharField(max_length=20)
-    
+
     class Meta:
         ordering = ["-created_at"]
 
-        
     def __str__(self):
         return f"Invoice Number: {self.invoice_number}"
-
 
     def save(self, *args, **kwargs):
         # Calculate total_price 1 which is mandatory:

@@ -9,8 +9,9 @@ class InvoiceModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = CustomUser.objects.create_user(
-        username='test@django.com',
-        password='test_user_password',
+        username="test@django.com",
+        email="test@django.com",
+        password="test_user_password123",
         )
         cls.invoice = Invoice.objects.create(
             created_by = cls.user,

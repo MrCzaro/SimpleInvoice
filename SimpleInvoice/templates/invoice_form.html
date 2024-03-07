@@ -88,39 +88,38 @@
                 {{ form.method_payment }}
             </div>
 
-            <!-- Add other fields similarly with appropriate styling -->
 
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="border p-4 rounded-md">
                 {{ form.service_type_1.label_tag }}
-                {{ form.service_type_1 }}
-                {{ form.service_type_2 }}
-                {{ form.service_type_3 }}
+                <p class="mb-2">{{ form.service_type_1 }}</p>
+                <p class="mb-2">{{ form.service_type_2 }}</p>
+                <p class="mb-2">{{ form.service_type_3 }}</p>
             </div>
 
             <div class="border p-4 rounded-md">
                 <div class="grid grid-cols-3 gap-4">
                     <div>
                         {{ form.unit_1.label_tag }}
-                        {{ form.unit_1 }}
-                        {{ form.unit_2 }}
-                        {{ form.unit_3 }}
+                        <p class="mb-2">{{ form.unit_1 }}</p>
+                        <p class="mb-2">{{ form.unit_2 }}</p>
+                        <p class="mb-2">{{ form.unit_3 }}</p>
                     </div>
 
                     <div>
                         {{ form.amount_1.label_tag }}
-                        {{ form.amount_1 }}
-                        {{ form.amount_2 }}
-                        {{ form.amount_3 }}
+                        <p class="mb-2">{{ form.amount_1 }}</p>
+                        <p class="mb-2">{{ form.amount_2 }}</p>
+                        <p class="mb-2">{{ form.amount_3 }}</p>
                     </div>
 
                     <div>
                         {{ form.price_1.label_tag }}
-                        {{ form.price_1 }}
-                        {{ form.price_2 }}
-                        {{ form.price_3 }}
+                        <p class="mb-2">{{ form.price_1 }}</p>
+                        <p class="mb-2">{{ form.price_2 }}</p>
+                        <p class="mb-2">{{ form.price_3 }}</p>
                     </div>
                 </div>
             </div>

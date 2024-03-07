@@ -6,14 +6,13 @@ from fpdf import FPDF
 from .forms import InvoiceForm
 from .models import Invoice
 
+
 @login_required
 def dashboard(request):
     invoices = Invoice.objects.filter(created_by=request.user)
-    context = {
-        "invoices" : invoices,
-        "title" : "Dashboard"
-    }
+    context = {"invoices": invoices, "title": "Dashboard"}
     return render(request, "dashboard.html", context)
+
 
 @login_required
 def create_invoice(request):
@@ -25,16 +24,13 @@ def create_invoice(request):
             invoice.created_by = request.user
             invoice.save()
             return redirect("invoice:detail", invoice.id)
-    else: 
+    else:
         form = InvoiceForm()
-    back_url = reverse("invoice:dashboard")  
-    context = {
-        "form" : form,
-        "title" : "Create an invoice",
-        "url" : back_url
-    }
-    
+    back_url = reverse("invoice:dashboard")
+    context = {"form": form, "title": "Create an invoice", "url": back_url}
+
     return render(request, "invoice_form.html", context)
+
 
 @login_required
 def update_invoice(request, invoice_id):
@@ -49,12 +45,13 @@ def update_invoice(request, invoice_id):
         form = InvoiceForm(instance=invoice)
     back_url = reverse("invoice:detail", args=[invoice.id])
     context = {
-        "form" : form,
-        "invoice" : invoice,
-        "title" : "Edit the invoice",
-        "url" : back_url
+        "form": form,
+        "invoice": invoice,
+        "title": "Edit the invoice",
+        "url": back_url,
     }
     return render(request, "invoice_form.html", context)
+
 
 @login_required
 def create_similar_invoice(request, invoice_id):
@@ -71,12 +68,13 @@ def create_similar_invoice(request, invoice_id):
         form = InvoiceForm(instance=invoice)
     back_url = reverse("invoice:detail", args=[invoice.id])
     context = {
-        "form" : form,
-        "invoice" : invoice,
-        "title" : "Create a smilar invoice",
-        "url" : back_url
+        "form": form,
+        "invoice": invoice,
+        "title": "Create a smilar invoice",
+        "url": back_url,
     }
     return render(request, "invoice_form.html", context)
+
 
 @login_required
 def delete_invoice(request, invoice_id):
@@ -85,41 +83,35 @@ def delete_invoice(request, invoice_id):
     if request.method == "POST":
         invoice.delete()
         return redirect("invoice:dashboard")
-    context = {
-        "title" : "Delete the Invoice",
-        "invoice" : invoice
-    }
+    context = {"title": "Delete the Invoice", "invoice": invoice}
     return render(request, "confirm_delete.html", context)
+
 
 @login_required
 def detail_invoice(request, invoice_id):
     # Displays an invoice details
     invoice = get_object_or_404(Invoice, id=invoice_id)
-    back_url = reverse("invoice:dashboard")  
-    context={
-        "invoice" : invoice,
-        "title" : "Invoice details",
-        "url" : back_url
-    }
+    back_url = reverse("invoice:dashboard")
+    context = {"invoice": invoice, "title": "Invoice details", "url": back_url}
     return render(request, "invoice_details.html", context)
+
 
 @login_required
 def download_invoice(request, invoice_id):
     # Handles creation of invoice in pdf format and make it downloadable
     invoice = get_object_or_404(Invoice, id=invoice_id)
-    
-# Generate the PDF content
+
+    # Generate the PDF content
     pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break("auto")
 
     # Invoice number
     pdf.set_font("Helvetica", "B", size=18)
-    pdf.text(10,10, f"Invoice number: {invoice.invoice_number}")
-
+    pdf.text(10, 10, f"Invoice number: {invoice.invoice_number}")
 
     # Place of creation, date of issue, and date of service:
-    pdf.set_font("Helvetica","B", size=10)
+    pdf.set_font("Helvetica", "B", size=10)
 
     # Place of creation
     pdf.text(145, 30, f"Place of creation: {invoice.place_of_creation}")
@@ -128,11 +120,13 @@ def download_invoice(request, invoice_id):
     pdf.text(145, 35, f"Date of issue: {invoice.date_of_creation.strftime('%Y-%m-%d')}")
 
     # Date of service
-    pdf.text(145, 40, f"Date of service: {invoice.date_of_service.strftime('%Y-%m-%d')}")
+    pdf.text(
+        145, 40, f"Date of service: {invoice.date_of_service.strftime('%Y-%m-%d')}"
+    )
 
     # Seller:
     pdf.set_font("helvetica", "B", size=12)
-    pdf.text(20,75, "Seller details:")
+    pdf.text(20, 75, "Seller details:")
     pdf.set_font("helvetica", size=10)
 
     company_y_position = 80
@@ -145,7 +139,7 @@ def download_invoice(request, invoice_id):
 
     # Customer:
     pdf.set_font("helvetica", "B", size=12)
-    pdf.text(120,75, "Customer details:")
+    pdf.text(120, 75, "Customer details:")
     pdf.set_font("helvetica", size=10)
 
     customer_y_position = 80
@@ -251,7 +245,6 @@ def download_invoice(request, invoice_id):
     pdf.set_font("helvetica", size=10)
     pdf.text(36, 205, "14 days")
 
-
     # Comments:
     if len(invoice.additional_information) > 1:
         pdf.text(70, 240, f"Comments: {invoice.additional_information}")
@@ -266,9 +259,11 @@ def download_invoice(request, invoice_id):
     pdf.text(150, 275, "----------------")
     # Output the PDF content
     response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = f"attachment; filename='invoice_{invoice.invoice_number}.pdf'"
+    response[
+        "Content-Disposition"
+    ] = f"attachment; filename='invoice_{invoice.invoice_number}.pdf'"
 
-    pdf_output = pdf.output(dest='S').encode("latin-1")
+    pdf_output = pdf.output(dest="S").encode("latin-1")
     response.write(pdf_output)
 
     return response
